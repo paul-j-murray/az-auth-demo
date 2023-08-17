@@ -51,9 +51,9 @@ foreach (var header in Request.Headers)
         string json = "Empty";
         string errorMsg = "All Good";
 
-        using (var client = new HttpClient())
+        using (var client = new System.Net.Http.HttpClient())
         {
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
             var response = await client.GetAsync(userInfoEndpoint);
             if (response.IsSuccessStatusCode)
             {
