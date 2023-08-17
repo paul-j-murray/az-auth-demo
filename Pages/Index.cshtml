@@ -7,43 +7,72 @@
 <div class="text-center">
     <h1 class="display-4">Request Header Inspector</h1>
     <div>
-    	<p>
-        	<b>X-MS-CLIENT-PRINCIPAL-NAME:</b><br />
-        	@Request.Headers["X-MS-CLIENT-PRINCIPAL-NAME"]
-    	</p>
-    	<p>
-        	<b>X-MS-CLIENT-PRINCIPAL-ID:</b><br />
-        	@Request.Headers["X-MS-CLIENT-PRINCIPAL-ID"]
-    	</p>
-    	<p>
-        	<b>X-MS-TOKEN-AAD-REFRESH-TOKEN:</b><br />
-        	@Request.Headers["X-MS-TOKEN-AAD-ID-TOKEN"]
-    	</p>
-    	<p>
-        	<b>X-MS-TOKEN-AAD-ACCESS-TOKEN:</b><br />
-        	@Request.Headers["X-MS-TOKEN-AAD-ACCESS-TOKEN"]
-    	</p>
+        <p>
+            <b>X-MS-CLIENT-PRINCIPAL-NAME:</b><br />
+            @Request.Headers["X-MS-CLIENT-PRINCIPAL-NAME"]
+        </p>
+        <p>
+            <b>X-MS-CLIENT-PRINCIPAL-ID:</b><br />
+            @Request.Headers["X-MS-CLIENT-PRINCIPAL-ID"]
+        </p>
+        <p>
+            <b>X-MS-TOKEN-AAD-REFRESH-TOKEN:</b><br />
+            @Request.Headers["X-MS-TOKEN-AAD-ID-TOKEN"]
+        </p>
+        <p>
+            <b>X-MS-TOKEN-AAD-ACCESS-TOKEN:</b><br />
+            @Request.Headers["X-MS-TOKEN-AAD-ACCESS-TOKEN"]
+        </p>
 
-    	<p>
-        	<b>X-MS-TOKEN-AAD-EXPIRES-ON:</b><br />
-        	@Request.Headers["X-MS-TOKEN-AAD-EXPIRES-ON"]
-    	</p>
+        <p>
+            <b>X-MS-TOKEN-AAD-EXPIRES-ON:</b><br />
+            @Request.Headers["X-MS-TOKEN-AAD-EXPIRES-ON"]
+        </p>
 
-    	<p>
-        	<b>X-MS-TOKEN-AAD-REFRESH-TOKEN:</b><br />
-        	@Request.Headers["X-MS-TOKEN-AAD-REFRESH-TOKEN"]
-    	</p>
+        <p>
+            <b>X-MS-TOKEN-AAD-REFRESH-TOKEN:</b><br />
+            @Request.Headers["X-MS-TOKEN-AAD-REFRESH-TOKEN"]
+        </p>
 
 @{
 var headerOut = "";
 foreach (var header in Request.Headers)
-    headerOut = headerOut + "\n" + header.Key + " : " + header.Value;
+    headerOut = headerOut + "<b>" + header.Key + "</b>" + "===" + header.Value + "<br />";
 }
-    	<p>
-        	<b>All Headers:</b><br />
-        	@headerOut
-    	</p>
+        <p>
+            <b>All Headers:</b><br />
+            @headerOut
+        </p>
 
-		<h1 class="display-4">Welcome</h1>
-		<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@{
+        // Replace with your access token
+        string accessToken = Request.Headers["X-MS-TOKEN-OKTA-ACCESS-TOKEN"];
+        string userInfoEndpoint = "https://staging-login.hunterwater.com.au/oauth2/v1/userinfo";
+        string json = "Empty";
+        string errorMsg = "All Good";
+
+        using (var client = new HttpClient())
+        {
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            var response = await client.GetAsync(userInfoEndpoint);
+            if (response.IsSuccessStatusCode)
+            {
+                json = await response.Content.ReadAsStringAsync();
+                // Newtonsoft.Json.Linq.JObject userInfo = Newtonsoft.Json.Linq.JObject.Parse(json);
+                // Console.WriteLine(userInfo);
+            }
+            else
+            {
+                errorMsg = $"An error occurred: {response.ReasonPhrase}";
+            }
+        }
+}
+
+        <p>
+            <b>Userinfo:</b> @json<br />
+            Error: @errorMsg
+        </p>
+
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
