@@ -34,6 +34,16 @@
         	@Request.Headers["X-MS-TOKEN-AAD-REFRESH-TOKEN"]
     	</p>
 
+@{
+var headerOut = "";
+foreach (var header in Request.Headers)
+    headerOut = headerOut + "\n" + header.Key + " : " + header.Value;
+}
+    	<p>
+        	<b>All Headers:</b><br />
+        	@headerOut
+    	</p>
+
 		<h1 class="display-4">Welcome</h1>
 		<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
