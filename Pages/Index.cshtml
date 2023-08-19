@@ -15,6 +15,7 @@
             <b>X-MS-CLIENT-PRINCIPAL-ID:</b><br />
             @Request.Headers["X-MS-CLIENT-PRINCIPAL-ID"]
         </p>
+<!--
         <p>
             <b>X-MS-TOKEN-AAD-ID-TOKEN:</b><br />
             @Request.Headers["X-MS-TOKEN-AAD-ID-TOKEN"]
@@ -33,11 +34,27 @@
             <b>X-MS-TOKEN-AAD-REFRESH-TOKEN:</b><br />
             @Request.Headers["X-MS-TOKEN-AAD-REFRESH-TOKEN"]
         </p>
+-->
+        <p>
+            <b>X-MS-TOKEN-OKTA-ID-TOKEN:</b><br />
+            @Request.Headers["X-MS-TOKEN-OKTA-ID-TOKEN"]
+        </p>
+        <p>
+            <b>X-MS-TOKEN-OKTA-ACCESS-TOKEN:</b><br />
+            @Request.Headers["X-MS-TOKEN-OKTA-ACCESS-TOKEN"]
+        </p>
+
+        <p>
+            <b>X-MS-TOKEN-OKTA-EXPIRES-ON:</b><br />
+            @Request.Headers["X-MS-TOKEN-OKTA-EXPIRES-ON"]
+        </p>
 
 @{
+/*
 var headerOut = "";
 foreach (var header in Request.Headers)
     headerOut = headerOut + "<b>" + header.Key + "</b>" + "===" + header.Value + "<br />";
+*/
 }
         <p>
             <b>All Headers:</b><br />
