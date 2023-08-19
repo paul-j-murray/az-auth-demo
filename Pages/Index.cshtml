@@ -50,11 +50,9 @@
         </p>
 
 @{
-/*
 var headerOut = "";
 foreach (var header in Request.Headers)
-    headerOut = headerOut + "<b>" + header.Key + "</b>" + "===" + header.Value + "<br />";
-*/
+    headerOut = headerOut + header.Key + " "; // + "===" + header.Value + "<br />";
 }
         <p>
             <b>All Headers:</b><br />
