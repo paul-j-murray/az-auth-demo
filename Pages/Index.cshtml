@@ -8,6 +8,14 @@
     <h1 class="display-4">Request Header Inspector</h1>
     <div>
         <p>
+            <b>X-MS-CLIENT-PRINCIPAL:</b><br />
+            @Request.Headers["X-MS-CLIENT-PRINCIPAL"]
+        </p>
+        <p>
+            <b>X-MS-CLIENT-PRINCIPAL-IDP:</b><br />
+            @Request.Headers["X-MS-CLIENT-PRINCIPAL-IDP"]
+        </p>
+        <p>
             <b>X-MS-CLIENT-PRINCIPAL-NAME:</b><br />
             @Request.Headers["X-MS-CLIENT-PRINCIPAL-NAME"]
         </p>
